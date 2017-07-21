@@ -45,8 +45,11 @@ class HomeController extends Controller
             file_put_contents($path.'/'.$name, $encodedData);
             $upload_data[] = $path.$name;
         }
-        
-        $app_user = ['subject'=> $request->subject,'email'=>$request->email,'myfile'=>$upload_data,'body'=>$request->body];
+
+        $multi_emails = ['nyilinaung97@gmail.com'];
+        array_push($multi_emails, $request->email);
+
+        $app_user = ['subject'=> $request->subject,'email'=>$multi_emails,'myfile'=>$upload_data,'body'=>$request->body];
 
         Mail::send('email.test', ['user' => $app_user], function ($message) use ($app_user)
         {  
